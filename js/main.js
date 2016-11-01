@@ -92,7 +92,7 @@ var Board = React.createClass({
     if(this.props.count) {
       $.getJSON("http://baconipsum.com/api/?type=all-meat&sentences=" + this.props.count + "&start-with-lorem=1&callback=?", function(results) {
         results[0].split('. ').forEach(function(sentence){
-          self.add(sentence.substring(0,40));
+          self.add(sentence.substring(0,30));
         });
       });
     }
