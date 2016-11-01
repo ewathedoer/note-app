@@ -35,7 +35,7 @@ var Note = React.createClass({
         <textarea ref="newText" defaultValue={this.props.children} className="form-control"></textarea>
         <button onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk" />
       </div>
-    )
+    );
   },
   
   render() {
@@ -49,23 +49,26 @@ var Note = React.createClass({
 
 var Board = React.createClass({
   propTypes: {
-    count: function(props, propName) {
+    count(props, propName) {
       if (typeof props[propName] !== "number") {
         return new Error ('The count must be a number');
       }
-      if (props[propsName] > 100) {
-        return new Error ('Creating ' + props[propsName] +  ' is not the best choice in this app');
+      if (props[propName] > 100) {
+        return new Error ('Creating ' + props[propName] +  ' is not the best choice in this app');
       }
     }
   },
   
+  add(text) {
+    var arr = this.state.notes;
+    //add new note's text to the array
+    arr.push(text);
+    this.setState({notes: arr});
+  },
+  
   getInitialState() {
     return {
-      notes: [
-        "Learn React",
-        "Practice React",
-        "Use React"
-      ]
+      notes: []
     };
   },
   
@@ -99,9 +102,9 @@ var Board = React.createClass({
   },
   
   render() {
-    return (
-      <div className="board">
+    return (<div className="board">
         {this.state.notes.map(this.eachNote)}
+        <button className="btn btn-sm btn-success glyphicon glyphicon-plus" onClick={this.add.bind(null, "New Note")} />
       </div>
     );
   }
