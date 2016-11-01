@@ -3,6 +3,18 @@ var Note = React.createClass({
     return {editing: false};
   },
   
+  componentWillMount() {
+    this.style = {
+      right: this.randomBetween(0, window.innerWidth - 150) + 'px', 
+      top: this.randomBetween(0, window.innerHeight - 150) + 'px',
+      transform: 'rotate(' + this.randomBetween(-15, 15) + 'deg)'
+    };
+  },
+  
+  randomBetween(min, max) {
+    return(min + Math.ceil(Math.random() * max));
+  },
+  
   edit() {
     this.setState({editing: true});
   },
@@ -19,7 +31,7 @@ var Note = React.createClass({
   
   renderDisplay() {
     return (
-      <div className="note">
+      <div className="note" style={this.style}>
         <p>{this.props.children}</p>
         <span>
           <button onClick={this.edit} className="btn btn-primary glyphicon glyphicon-pencil" />
@@ -31,7 +43,7 @@ var Note = React.createClass({
   
   renderForm() {
     return (
-      <div className="note">
+      <div className="note" style={this.style}>
         <textarea ref="newText" defaultValue={this.props.children} className="form-control"></textarea>
         <button onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk" />
       </div>
@@ -59,24 +71,33 @@ var Board = React.createClass({
     }
   },
   
-  add(text) {
-    var arr = this.state.notes;
-    //add new note's text to the array
-    arr.push(text);
-    this.setState({notes: arr});
-  },
-  
   getInitialState() {
     return {
       notes: []
     };
   },
   
+  nextId() {
+    this.uniqueId = this.uniqueId || 0;
+    //each new note will take a new uniqueId
+    return this.uniqueId++;
+  },
+  
+  add(text) {
+    var arr = this.state.notes;
+    //add new note's text to the array
+    arr.push({
+      id: this.nextId(),
+      note: text
+    });
+    this.setState({notes: arr});
+  },
+  
   update(newText, i) {
     //store the state of notes
     var arr = this.state.notes;
-    //set new text
-    arr[i] = newText;
+    //set new text and attach the new Id to the text
+    arr[i].note = newText;
     //update the state of notes array
     this.setState({notes:arr});
   },
@@ -91,12 +112,12 @@ var Board = React.createClass({
   
   eachNote(note, i) {
     return(
-      <Note key={i}
+      <Note key={note.id}
         index={i}
         onChange={this.update}
         onRemove={this.remove}
       >
-        {note}
+        {note.note}
       </Note>
     );
   },
