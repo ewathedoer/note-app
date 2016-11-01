@@ -87,6 +87,17 @@ var Board = React.createClass({
     return this.uniqueId++;
   },
   
+  componentWillMount() {
+    var self = this;
+    if(this.props.count) {
+      $.getJSON("http://baconipsum.com/api/?type=all-meat&sentences=" + this.props.count + "&start-with-lorem=1&callback=?", function(results) {
+        results[0].split('. ').forEach(function(sentence){
+          self.add(sentence.substring(0,40));
+        });
+      });
+    }
+  },
+  
   add(text) {
     var arr = this.state.notes;
     //add new note's text to the array
@@ -135,4 +146,4 @@ var Board = React.createClass({
   }
 });
 
-ReactDOM.render(<Board count={10} />, document.getElementById('react-container'));
+ReactDOM.render(<Board count={40} />, document.getElementById('react-container'));
