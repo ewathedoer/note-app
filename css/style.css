@@ -1,0 +1,67 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+body,
+html,
+div.board,
+div#react-container {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+div.board {
+  background-color: grey;
+  width: 100%;
+}
+
+div.note {
+  height: 150px;
+  width: 150px;
+  background-color: lightblue;
+  margin: 2px 0;
+  position: relative;
+  cursor: -webkit-grab;
+  box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
+}
+
+div.note:active {
+  cursor: -webkit-grabbing;
+}
+
+div.note p {
+  font-size: 22px;
+  padding: 5px;
+  font-family: "Raleway", Arial;
+}
+
+div.note:hover > span {
+  opacity: 1;
+}
+
+div.note > span {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  opacity: 0;
+  -webkit-transition: opacity .25s linear;
+  transition: opacity .25s linear;
+}
+
+div.note button {
+  margin: 2px;
+}
+
+div.note > textarea {
+  height: 75%;
+  background: rgba(255, 255, 255, .5);
+}
+
+.glyphicon-plus {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
