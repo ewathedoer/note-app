@@ -15,13 +15,17 @@ var Note = React.createClass({
   
   componentDidMount() {
     $(ReactDOM.findDOMNode(this)).css("z-index", maxZIndex);
-    $(ReactDOM.findDOMNode(this)).draggable({
-      containment: "parent",
-      start: function(event, ui) {
-        maxZIndex++;
-        $(this).css("z-index", maxZIndex);
-      }
-    });
+    if(!Modernizr.touchevents) {
+      $(ReactDOM.findDOMNode(this)).draggable({
+        containment: "parent",
+        start: function(event, ui) {
+          maxZIndex++;
+          $(this).css("z-index", maxZIndex);
+        },
+        distance: 10,
+        cancel: "span, textarea"
+      });
+    }
   },
   
   randomBetween(min, max) {
@@ -42,9 +46,16 @@ var Note = React.createClass({
     this.props.onRemove(this.props.index);
   },
   
+  activate() {
+    if(Modernizr.touchevents) {
+      maxZIndex++;
+      $(ReactDOM.findDOMNode(this)).css("z-index", maxZIndex);
+    }
+  },
+  
   renderDisplay() {
     return (
-      <div className="note" style={this.style}>
+      <div className="note" style={this.style} onClick={this.activate}>
         <p>{this.props.children}</p>
         <span>
           <button onClick={this.edit} className="btn btn-edit glyphicon glyphicon-pencil" />

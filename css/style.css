@@ -20,7 +20,7 @@ div.board {
   width: 100%;
 }
 
-div.note {
+.note {
   height: 150px;
   width: 150px;
   background-color: #b0e5ff;
@@ -32,21 +32,21 @@ div.note {
   z-index: 100;
 }
 
-div.note:active {
+.note:active {
   cursor: -webkit-grabbing;
 }
 
-div.note p {
+.note p {
   font-size: 1.5em;
   padding: 5px;
   font-family: "Raleway", Arial;
 }
 
-div.note:hover > span {
+.note:hover > span {
   opacity: 1;
 }
 
-div.note > span {
+.note > span {
   position: absolute;
   bottom: 2px;
   right: 2px;
@@ -55,11 +55,11 @@ div.note > span {
   transition: opacity .25s linear;
 }
 
-div.note button {
+.note button {
   margin: 2px;
 }
 
-div.note > textarea {
+.note > textarea {
   height: 75%;
   background: rgba(255, 255, 255, .5);
 }
@@ -129,4 +129,17 @@ div.note > textarea {
 
 .form-control {
   font-size: 1em;
+}
+
+/*media queries*/
+@media screen and (max-width: 1024px) {
+  .note > span {
+    opacity: 1;
+  }
+  .btn-edit, 
+  .btn-delete {
+    background-color: transparent;
+    border-color: transparent;
+    color: #121212;
+  }
 }
