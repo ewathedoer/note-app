@@ -37,7 +37,7 @@ div.note:active {
 }
 
 div.note p {
-  font-size: 22px;
+  font-size: 1.5em;
   padding: 5px;
   font-family: "Raleway", Arial;
 }
@@ -125,4 +125,8 @@ div.note > textarea {
   color: #fff;
   background-color: #81c784;
   border-color: #81c784;
+}
+
+.form-control {
+  font-size: 1em;
 }
