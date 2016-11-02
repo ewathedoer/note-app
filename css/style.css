@@ -5,27 +5,31 @@ html,
 div.board,
 div#react-container {
   height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 
 body {
   margin: 0;
   padding: 0;
+  background-color: #607d8b;
 }
 
 div.board {
-  background-color: grey;
+  background-color: #607d8b;
   width: 100%;
 }
 
 div.note {
   height: 150px;
   width: 150px;
-  background-color: lightblue;
+  background-color: #b0e5ff;
   margin: 2px 0;
   position: absolute;
   cursor: -webkit-grab;
   box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
+  overflow: hidden;
+  z-index: 100;
 }
 
 div.note:active {
@@ -64,4 +68,61 @@ div.note > textarea {
   position: fixed;
   top: 10px;
   right: 10px;
+}
+
+.btn-add {
+  background-color: #b28a58;
+  border-color: #b28a58;
+  color: #fff;
+  z-index: 1000;
+}
+
+.btn-add:hover, 
+.btn-add:focus, 
+.btn-add:active {
+  background-color: #ffdbb0;
+  border-color: #ffdbb0;
+  color: #fff;
+}
+
+.btn-edit {
+  background-color: #263238;
+  border-color: #263238;
+  color: #fff;
+}
+
+.btn-edit:hover,
+.btn-edit:focus,
+.btn-edit:active {
+  color: #fff;
+  background-color: #607d8b;
+  border-color: #607d8b;
+}
+
+.btn-delete {
+  background-color: #b71c1c;
+  border-color: #b71c1c;
+  color: #fff;
+}
+
+.btn-delete:hover,
+.btn-delete:focus,
+.btn-delete:active {
+  color: #fff;
+  background-color: #f44336;
+  border-color: #f44336;
+}
+
+.btn-save {
+  color: #fff;
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.btn-save:hover,
+.btn-save:focus,
+.btn-save:active {
+  color: #fff;
+  background-color: #81c784;
+  border-color: #81c784;
 }

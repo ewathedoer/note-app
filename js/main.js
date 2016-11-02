@@ -1,3 +1,5 @@
+var maxZIndex= 100;
+
 var Note = React.createClass({
   getInitialState() {
     return {editing: false};
@@ -12,7 +14,14 @@ var Note = React.createClass({
   },
   
   componentDidMount() {
-    $(ReactDOM.findDOMNode(this)).draggable();
+    $(ReactDOM.findDOMNode(this)).css("z-index", maxZIndex);
+    $(ReactDOM.findDOMNode(this)).draggable({
+      containment: "parent",
+      start: function(event, ui) {
+        maxZIndex++;
+        $(this).css("z-index", maxZIndex);
+      }
+    });
   },
   
   randomBetween(min, max) {
@@ -38,8 +47,8 @@ var Note = React.createClass({
       <div className="note" style={this.style}>
         <p>{this.props.children}</p>
         <span>
-          <button onClick={this.edit} className="btn btn-primary glyphicon glyphicon-pencil" />
-          <button onClick={this.remove} className="btn btn-danger glyphicon glyphicon-trash" />
+          <button onClick={this.edit} className="btn btn-edit glyphicon glyphicon-pencil" />
+          <button onClick={this.remove} className="btn btn-delete glyphicon glyphicon-trash" />
         </span>
       </div>
     );
@@ -49,7 +58,7 @@ var Note = React.createClass({
     return (
       <div className="note" style={this.style}>
         <textarea ref="newText" defaultValue={this.props.children} className="form-control"></textarea>
-        <button onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk" />
+        <button onClick={this.save} className="btn btn-save btn-sm glyphicon glyphicon-menu-down" />
       </div>
     );
   },
@@ -99,6 +108,7 @@ var Board = React.createClass({
   },
   
   add(text) {
+    maxZIndex++;
     var arr = this.state.notes;
     //add new note's text to the array
     arr.push({
@@ -140,7 +150,7 @@ var Board = React.createClass({
   render() {
     return (<div className="board">
         {this.state.notes.map(this.eachNote)}
-        <button className="btn btn-sm btn-success glyphicon glyphicon-plus" onClick={this.add.bind(null, "New Note")} />
+        <button className="btn btn-add glyphicon glyphicon-plus" onClick={this.add.bind(null, "New Note")} />
       </div>
     );
   }
