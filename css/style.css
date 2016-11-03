@@ -13,9 +13,10 @@ body {
   margin: 0;
   padding: 0;
   background-color: #607d8b;
+  min-width: 250px;
 }
 
-div.board {
+.board {
   background-color: #607d8b;
   width: 100%;
 }
@@ -70,6 +71,19 @@ div.board {
   right: 10px;
 }
 
+.btn-clear {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: darkgoldenrod;
+  border-color: #darkgoldenrod;
+  color: #fff;
+  z-index: 1000;
+  padding: 9px 18px;
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+
 .btn-add {
   background-color: darkgoldenrod;
   border-color: darkgoldenrod;
@@ -79,9 +93,12 @@ div.board {
   font-size: 1.2em;
 }
 
-.btn-add:hover, 
+.btn-add:hover,
 .btn-add:focus, 
-.btn-add:active {
+.btn-add:active,
+.btn-clear:hover,
+.btn-clear:focus, 
+.btn-clear:active{
   background-color: #ffdbb0;
   border-color: #ffdbb0;
   color: #fff;
@@ -143,5 +160,11 @@ div.board {
     background-color: transparent;
     border-color: transparent;
     color: #121212;
+  }
+  
+  .glyphicon-plus, .btn-add {
+    top: auto;
+    bottom: 10px;
+    left: 10px;
   }
 }

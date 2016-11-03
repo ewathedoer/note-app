@@ -173,6 +173,11 @@ var Board = React.createClass({
     this.setState({notes: arr});
   },
   
+  //remove all notes by cleaning notes array
+  clear() {
+    this.setState({notes: []});
+  },
+  
   eachNote(note, i) {
     return(
       <Note key={note.id}
@@ -190,6 +195,7 @@ var Board = React.createClass({
     return (<div className="board">
         {this.state.notes.map(this.eachNote)}
         <button className="btn btn-add glyphicon glyphicon-plus" onClick={this.add.bind(null, "New Note", true)} />
+        <button className="btn btn-clear" onClick={this.clear}>clean board</button>                      
       </div>
     );
   }
