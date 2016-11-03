@@ -71,10 +71,12 @@ div.board {
 }
 
 .btn-add {
-  background-color: #b28a58;
-  border-color: #b28a58;
+  background-color: darkgoldenrod;
+  border-color: darkgoldenrod;
   color: #fff;
   z-index: 1000;
+  padding: 9px 18px;
+  font-size: 1.2em;
 }
 
 .btn-add:hover, 

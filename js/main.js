@@ -2,10 +2,14 @@ var maxZIndex= 100;
 
 var Note = React.createClass({
   getInitialState() {
-    return {editing: false};
+    return {
+      editing: false,
+      isNew: this.props.isNew
+    };
   },
   
   componentWillMount() {
+    //each note has to have different random angle
     this.style = {
       right: this.randomBetween(0, window.innerWidth - 150) + 'px', 
       top: this.randomBetween(0, window.innerHeight - 150) + 'px',
@@ -39,7 +43,10 @@ var Note = React.createClass({
   save() {
     //var val= this.refs.newText.value;
     this.props.onChange(this.refs.newText.value, this.props.index);
-    this.setState({editing: false});
+    this.setState({
+      editing: false,
+      isNew: false
+    });
   },
   
   remove() {
@@ -54,6 +61,11 @@ var Note = React.createClass({
   },
   
   renderDisplay() {
+    if(this.state.isNew) {
+      this.style.color="darkgoldenrod";
+    } else {
+      this.style.color="black";
+    }
     return (
       <div className="note" style={this.style} onClick={this.activate}>
         <p>{this.props.children}</p>
@@ -112,19 +124,20 @@ var Board = React.createClass({
     if(this.props.count) {
       $.getJSON("http://baconipsum.com/api/?type=all-meat&sentences=" + this.props.count + "&start-with-lorem=1&callback=?", function(results) {
         results[0].split('. ').forEach(function(sentence){
-          self.add(sentence.substring(0,30));
+          self.add(sentence.substring(0,30), false);
         });
       });
     }
   },
   
-  add(text) {
+  add(text, isNew) {
     maxZIndex++;
     var arr = this.state.notes;
     //add new note's text to the array
     arr.push({
       id: this.nextId(),
-      note: text
+      info: text,
+      isNew: isNew
     });
     this.setState({notes: arr});
   },
@@ -133,7 +146,7 @@ var Board = React.createClass({
     //store the state of notes
     var arr = this.state.notes;
     //set new text and attach the new Id to the text
-    arr[i].note = newText;
+    arr[i].info = newText;
     //update the state of notes array
     this.setState({notes:arr});
   },
@@ -150,10 +163,11 @@ var Board = React.createClass({
     return(
       <Note key={note.id}
         index={i}
+        isNew={note.isNew}
         onChange={this.update}
         onRemove={this.remove}
       >
-        {note.note}
+        {note.info}
       </Note>
     );
   },
@@ -161,10 +175,10 @@ var Board = React.createClass({
   render() {
     return (<div className="board">
         {this.state.notes.map(this.eachNote)}
-        <button className="btn btn-add glyphicon glyphicon-plus" onClick={this.add.bind(null, "New Note")} />
+        <button className="btn btn-add glyphicon glyphicon-plus" onClick={this.add.bind(null, "New Note", true)} />
       </div>
     );
   }
 });
 
-ReactDOM.render(<Board count={40} />, document.getElementById('react-container'));
+ReactDOM.render(<Board count={20} />, document.getElementById('react-container'));
