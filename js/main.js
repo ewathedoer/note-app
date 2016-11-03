@@ -66,15 +66,29 @@ var Note = React.createClass({
     } else {
       this.style.color="black";
     }
-    return (
-      <div className="note" style={this.style} onClick={this.activate}>
-        <p>{this.props.children}</p>
-        <span>
-          <button onClick={this.edit} className="btn btn-edit glyphicon glyphicon-pencil" />
-          <button onClick={this.remove} className="btn btn-delete glyphicon glyphicon-trash" />
-        </span>
-      </div>
-    );
+    
+    //add elipsis depending on the length of the note
+    if(this.props.children.length > 30) {
+      return (
+        <div className="note" style={this.style} onClick={this.activate}>
+          <p>{this.props.children.substring(0,30) + "..."}</p>
+          <span>
+            <button onClick={this.edit} className="btn btn-edit glyphicon glyphicon-pencil" />
+            <button onClick={this.remove} className="btn btn-delete glyphicon glyphicon-trash" />
+          </span>
+        </div>
+      );
+    } else {
+      return (
+        <div className="note" style={this.style} onClick={this.activate}>
+          <p>{this.props.children.substring(0,30)}</p>
+          <span>
+            <button onClick={this.edit} className="btn btn-edit glyphicon glyphicon-pencil" />
+            <button onClick={this.remove} className="btn btn-delete glyphicon glyphicon-trash" />
+          </span>
+        </div>
+      );
+    }
   },
   
   renderForm() {
@@ -124,7 +138,7 @@ var Board = React.createClass({
     if(this.props.count) {
       $.getJSON("http://baconipsum.com/api/?type=all-meat&sentences=" + this.props.count + "&start-with-lorem=1&callback=?", function(results) {
         results[0].split('. ').forEach(function(sentence){
-          self.add(sentence.substring(0,30), false);
+          self.add(sentence.substring(0,35), false);
         });
       });
     }
