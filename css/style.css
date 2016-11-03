@@ -16,6 +16,10 @@ body {
   min-width: 250px;
 }
 
+section {
+  height: 100vh;
+}
+
 .board {
   background-color: #607d8b;
   width: 100%;
